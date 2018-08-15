@@ -55,14 +55,14 @@ services:
 ######### DOCKER RELATED ##########
 
 # Watchtower - Automatic Update of Containers/Apps
-  # watchtower:
-  #   container_name: watchtower
-  #   hostname: watchtower
-  #   restart: always
-  #   image: v2tec/watchtower
-  #   volumes:
-  #     - /var/run/docker.sock:/var/run/docker.sock
-  #   command: --schedule "0 0 23 * * SUN" --cleanup
+  watchtower:
+    container_name: watchtower
+    hostname: watchtower
+    restart: always
+    image: v2tec/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --schedule "0 0 23 * * SUN" --cleanup
 
 ######### SMART HOME APPS ##########
 
@@ -90,79 +90,79 @@ services:
 
 ######### DOWNLOADERS ##########
 
-# # Transmission with VPN – Bittorrent Downloader
-#   transmission-vpn:
-#     container_name: transmission-vpn
-#     hostname: transmission
-#     image: haugene/transmission-openvpn
-#     cap_add:
-#       - NET_ADMIN
-#     devices:
-#       - /dev/net/tun
-#     restart: always
-#     ports:
-#     - "9904:9091"
-#     dns:
-#       - 1.1.1.1
-#       - 1.0.0.1
-#     volumes:
-#       - /etc/localtime:/etc/localtime:ro
-#       - ${USERDIR}/docker/transmission-vpn:/data
-#       - ${USERDIR}/docker/shared:/shared
-#       - ${USERDIR}/Downloads:/data/watch
-#       - ${USERDIR}/Downloads/completed:/data/completed
-#       - ${USERDIR}/Downloads/incomplete:/data/incomplete
-#     environment:
-#       - OPENVPN_PROVIDER=IPVANISH
-#       - OPENVPN_USERNAME=ipvanish_username
-#       - OPENVPN_PASSWORD=ipvanish_password
-#       - OPENVPN_CONFIG="YYYYYYYYYYY"
-#       - OPENVPN_OPTS=--inactive 3600 --ping 10 --ping-exit 60
-#       - LOCAL_NETWORK=192.168.1.0/24
-#       - PUID=${PUID}
-#       - PGID=${PGID}
-#       - TZ=${TZ}
-#       - TRANSMISSION_RPC_AUTHENTICATION_REQUIRED=true
-#       - TRANSMISSION_RPC_HOST_WHITELIST="127.0.0.1,192.168.*.*"
-#       - TRANSMISSION_RPC_PASSWORD=${TRANSMISSION_RPC_PASSWORD}
-#       - TRANSMISSION_RPC_USERNAME=${TRANSMISSION_RPC_USERNAME}
-#       - TRANSMISSION_UMASK=002
-#       - TRANSMISSION_RATIO_LIMIT=0.01
-#       - TRANSMISSION_RATIO_LIMIT_ENABLED=true
-#       - TRANSMISSION_ALT_SPEED_DOWN=2000
-#       - TRANSMISSION_ALT_SPEED_ENABLED=true
-#       - TRANSMISSION_ALT_SPEED_UP=15
-#       - TRANSMISSION_SPEED_LIMIT_DOWN=6000
-#       - TRANSMISSION_SPEED_LIMIT_DOWN_ENABLED=true
-#       - TRANSMISSION_SPEED_LIMIT_UP=30
-#       - TRANSMISSION_SPEED_LIMIT_UP_ENABLED=true
-#       - TRANSMISSION_INCOMPLETE_DIR=/downloads/incomplete
-#       - TRANSMISSION_INCOMPLETE_DIR_ENABLED=true
-#       - TRANSMISSION_WATCH_DIR=/downloads
-#       - TRANSMISSION_WATCH_DIR_ENABLED=true
-#       - TRANSMISSION_DOWNLOAD_DIR=/downloads/completed
-#
-# # qBittorrent without VPN – Bittorrent Downloader (Alternative)
-#   qbittorrent:
-#     image: "linuxserver/qbittorrent"
-#     hostname: qbittorrent
-#     container_name: "qbittorrent"
-#     volumes:
-#       - ${USERDIR}/docker/qbittorrent:/config
-#       - ${USERDIR}/Downloads/completed:/downloads
-#       - ${USERDIR}/docker/shared:/shared
-#     ports:
-#       - "9905:9905"
-#       - "6881:6881"
-#       - "6881:6881/udp"
-#     restart: always
-#     environment:
-#       - PUID=${PUID}
-#       - PGID=${PGID}
-#       - TZ=${TZ}
-#       - UMASK_SET=002
-#       - WEBUI_PORT=9905
-#
+# Transmission with VPN – Bittorrent Downloader
+  transmission-vpn:
+    container_name: transmission-vpn
+    hostname: transmission
+    image: haugene/transmission-openvpn
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun
+    restart: always
+    ports:
+    - "9904:9091"
+    dns:
+      - 1.1.1.1
+      - 1.0.0.1
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ${USERDIR}/docker/transmission-vpn:/data
+      - ${USERDIR}/docker/shared:/shared
+      - ${USERDIR}/Downloads:/data/watch
+      - ${USERDIR}/Downloads/completed:/data/completed
+      - ${USERDIR}/Downloads/incomplete:/data/incomplete
+    environment:
+      - OPENVPN_PROVIDER=IPVANISH
+      - OPENVPN_USERNAME=ipvanish_username
+      - OPENVPN_PASSWORD=ipvanish_password
+      - OPENVPN_CONFIG="YYYYYYYYYYY"
+      - OPENVPN_OPTS=--inactive 3600 --ping 10 --ping-exit 60
+      - LOCAL_NETWORK=192.168.1.0/24
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - TRANSMISSION_RPC_AUTHENTICATION_REQUIRED=true
+      - TRANSMISSION_RPC_HOST_WHITELIST="127.0.0.1,192.168.*.*"
+      - TRANSMISSION_RPC_PASSWORD=${TRANSMISSION_RPC_PASSWORD}
+      - TRANSMISSION_RPC_USERNAME=${TRANSMISSION_RPC_USERNAME}
+      - TRANSMISSION_UMASK=002
+      - TRANSMISSION_RATIO_LIMIT=0.01
+      - TRANSMISSION_RATIO_LIMIT_ENABLED=true
+      - TRANSMISSION_ALT_SPEED_DOWN=2000
+      - TRANSMISSION_ALT_SPEED_ENABLED=true
+      - TRANSMISSION_ALT_SPEED_UP=15
+      - TRANSMISSION_SPEED_LIMIT_DOWN=6000
+      - TRANSMISSION_SPEED_LIMIT_DOWN_ENABLED=true
+      - TRANSMISSION_SPEED_LIMIT_UP=30
+      - TRANSMISSION_SPEED_LIMIT_UP_ENABLED=true
+      - TRANSMISSION_INCOMPLETE_DIR=/downloads/incomplete
+      - TRANSMISSION_INCOMPLETE_DIR_ENABLED=true
+      - TRANSMISSION_WATCH_DIR=/downloads
+      - TRANSMISSION_WATCH_DIR_ENABLED=true
+      - TRANSMISSION_DOWNLOAD_DIR=/downloads/completed
+
+# qBittorrent without VPN – Bittorrent Downloader (Alternative)
+  qbittorrent:
+    image: "linuxserver/qbittorrent"
+    hostname: qbittorrent
+    container_name: "qbittorrent"
+    volumes:
+      - ${USERDIR}/docker/qbittorrent:/config
+      - ${USERDIR}/Downloads/completed:/downloads
+      - ${USERDIR}/docker/shared:/shared
+    ports:
+      - "9905:9905"
+      - "6881:6881"
+      - "6881:6881/udp"
+    restart: always
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - UMASK_SET=002
+      - WEBUI_PORT=9905
+
 # SABnzbd – Usenet (NZB) Downloader
   sabnzbd:
     image: "linuxserver/sabnzbd"
@@ -278,24 +278,24 @@ services:
       - PGID=${PGID}
       - TZ=${TZ}
 
-# # SickRage – TV Show Download and Management (Alternative)
-#   sickrage:
-#     image: "linuxserver/sickrage"
-#     hostname: sickrage
-#     container_name: "sickrage"
-#     volumes:
-#       - ${USERDIR}/docker/sickrage:/config
-#       - ${USERDIR}/Downloads/completed:/downloads
-#       - ${USERDIR}/media/tvshows:/tv
-#       - ${USERDIR}/docker/shared:/shared
-#     ports:
-#       - "9911:8081"
-#     restart: always
-#     environment:
-#       - PUID=${PUID}
-#       - PGID=${PGID}
-#       - TZ=${TZ}
-#
+# SickRage – TV Show Download and Management (Alternative)
+  sickrage:
+    image: "linuxserver/sickrage"
+    hostname: sickrage
+    container_name: "sickrage"
+    volumes:
+      - ${USERDIR}/docker/sickrage:/config
+      - ${USERDIR}/Downloads/completed:/downloads
+      - ${USERDIR}/media/tvshows:/tv
+      - ${USERDIR}/docker/shared:/shared
+    ports:
+      - "9911:8081"
+    restart: always
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+
 ######### MEDIA SERVER APPS ##########
 
 # Plex Media Server
@@ -322,10 +322,10 @@ services:
     environment:
       - TZ=${TZ}
       - HOSTNAME="Docker Plex"
-      - PLEX_CLAIM="claim-HCXaCbqt1sTAU3AS6JGr"
+      - PLEX_CLAIM="claim-YYYYYYYYY"
       - PLEX_UID=${PUID}
       - PLEX_GID=${PGID}
-      - ADVERTISE_IP="http://10.0.101:32400/"
+      - ADVERTISE_IP="http://SERVER-IP:32400/"
 
 # Tautulli (aka PlexPy) – Monitoring Plex Usage
   tautulli:
@@ -344,22 +344,22 @@ services:
       - PGID=${PGID}
       - TZ=${TZ}
 
-# # Ombi – Accept Requests for your Media Server
-#   ombi:
-#     container_name: ombi
-#     hostname: ombi
-#     restart: always
-#     image: linuxserver/ombi
-#     volumes:
-#       - ${USERDIR}/docker/ombi:/config
-#       - ${USERDIR}/docker/shared:/shared
-#     ports:
-#       - "9913:3579"
-#     environment:
-#       - PUID=${PUID}
-#       - PGID=${PGID}
-#       - TZ=${TZ}
-#
+# Ombi – Accept Requests for your Media Server
+  ombi:
+    container_name: ombi
+    hostname: ombi
+    restart: always
+    image: linuxserver/ombi
+    volumes:
+      - ${USERDIR}/docker/ombi:/config
+      - ${USERDIR}/docker/shared:/shared
+    ports:
+      - "9913:3579"
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+
 ######### SEARCHERS ##########
 
 # NZBHydra – NZB Meta Search
@@ -379,23 +379,23 @@ services:
       - PGID=${PGID}
       - TZ=${TZ}
 
-# # Jackett – Torrent Proxy
-#   jackett:
-#     image: "linuxserver/jackett"
-#     hostname: jackett
-#     container_name: "jackett"
-#     volumes:
-#       - ${USERDIR}/docker/jackett:/config
-#       - ${USERDIR}/Downloads/completed:/downloads
-#       - "/etc/localtime:/etc/localtime:ro"
-#       - ${USERDIR}/docker/shared:/shared
-#     ports:
-#       - "9915:9117"
-#     restart: always
-#     environment:
-#       - PUID=${PUID}
-#       - PGID=${PGID}
-#       - TZ=${TZ}
+# Jackett – Torrent Proxy
+  jackett:
+    image: "linuxserver/jackett"
+    hostname: jackett
+    container_name: "jackett"
+    volumes:
+      - ${USERDIR}/docker/jackett:/config
+      - ${USERDIR}/Downloads/completed:/downloads
+      - "/etc/localtime:/etc/localtime:ro"
+      - ${USERDIR}/docker/shared:/shared
+    ports:
+      - "9915:9117"
+    restart: always
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
 
 ######### UTILITIES ##########
 
